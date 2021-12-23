@@ -12,9 +12,11 @@ using UnityEngine.UI;
 public class MenuUIHandler : MonoBehaviour
 {
     public Text bestScoreText;
+    public InputField nameInputField;
 
     public void StartNew()
     {
+        ScoreDataManager.Instance.SetPlayerName(nameInputField.text);
         SceneManager.LoadScene(1);
     }
 
@@ -25,5 +27,20 @@ public class MenuUIHandler : MonoBehaviour
         #else
             Application.Quit();
         #endif
+    }
+
+    void Start()
+    {
+        UpdateBestScore();
+    }
+
+    void UpdateBestScore()
+    {
+        bestScoreText.text = "Best Score: " + ScoreDataManager.Instance.activeBoard.NameBoard[0] + ": " + ScoreDataManager.Instance.activeBoard.ScoreBoard[0];
+    }
+
+    public void EnterHighScoreScene()
+    {
+        SceneManager.LoadScene(2);
     }
 }
